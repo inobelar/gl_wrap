@@ -1,4 +1,4 @@
-(**WIP**) OpenGL C++ Wrapper library
+# (**WIP**) OpenGL C++ Wrapper library
 
 
 ## Build configuration
@@ -21,7 +21,7 @@
     - None - no loader
 
 - Debugging (**optional** all):
-    - `GLWRAP_CHECK_FUNCS`
+    - `GLWRAP_CHECK_FUNCS` 
     - `GLWRAP_CHECK_BINDED`
 
 - Extentions (**optional** all):
