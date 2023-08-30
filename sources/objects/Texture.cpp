@@ -178,6 +178,101 @@ int gl::Texture::getHeight(int level) const
 
 // -----------------------------------------------------------------------------
 
+gl::Object::id_t gl::Texture::getBindedId() const
+{
+    GLint binded_id = 0;
+
+    switch(_target) {
+    #if defined(GL_TEXTURE_1D) && defined(GL_TEXTURE_BINDING_1D)
+        case GL_TEXTURE_1D:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_1D, &binded_id) );
+        } break;
+    #endif
+
+    #if defined(GL_TEXTURE_2D) && defined(GL_TEXTURE_BINDING_2D)
+        case GL_TEXTURE_2D:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_2D, &binded_id) );
+        } break;
+    #endif
+
+    #if defined(GL_TEXTURE_3D) && defined(GL_TEXTURE_BINDING_3D)
+        case GL_TEXTURE_3D:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_3D, &binded_id) );
+        } break;
+    #endif
+
+    // -------------------------------------------------------------------------
+
+    #if defined(GL_TEXTURE_1D_ARRAY) && defined(GL_TEXTURE_BINDING_1D_ARRAY)
+        case GL_TEXTURE_1D_ARRAY:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_1D_ARRAY, &binded_id) );
+        } break;
+    #endif
+
+    #if defined(GL_TEXTURE_2D_ARRAY) && defined(GL_TEXTURE_BINDING_2D_ARRAY)
+        case GL_TEXTURE_2D_ARRAY:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_2D_ARRAY, &binded_id) );
+        } break;
+    #endif
+
+    #if defined(GL_TEXTURE_RECTANGLE) && defined(GL_TEXTURE_BINDING_RECTANGLE)
+        case GL_TEXTURE_RECTANGLE:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_RECTANGLE, &binded_id) );
+        } break;
+    #endif
+
+    #if defined(GL_TEXTURE_BUFFER) && defined(GL_TEXTURE_BINDING_BUFFER)
+        case GL_TEXTURE_BUFFER:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_BUFFER, &binded_id) );
+        } break;
+    #endif
+
+    #if defined(GL_TEXTURE_CUBE_MAP) && defined(GL_TEXTURE_BINDING_CUBE_MAP)
+        case GL_TEXTURE_CUBE_MAP:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_CUBE_MAP, &binded_id) );
+        } break;
+    #endif
+
+    #if defined(GL_TEXTURE_CUBE_MAP_ARRAY) && defined(GL_TEXTURE_BINDING_CUBE_MAP_ARRAY)
+        case GL_TEXTURE_CUBE_MAP_ARRAY:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_CUBE_MAP_ARRAY, &binded_id) );
+        } break;
+    #endif
+
+    #if defined(GL_TEXTURE_2D_MULTISAMPLE) && defined(GL_TEXTURE_BINDING_2D_MULTISAMPLE)
+        case GL_TEXTURE_2D_MULTISAMPLE:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_2D_MULTISAMPLE, &binded_id) );
+        } break;
+    #endif
+
+    #if defined(GL_TEXTURE_2D_MULTISAMPLE_ARRAY) && defined(GL_TEXTURE_BINDING_2D_MULTISAMPLE_ARRAY)
+        case GL_TEXTURE_2D_MULTISAMPLE_ARRAY:
+        {
+            GLWRAP_GL_CHECK( glGetIntegerv(GL_TEXTURE_BINDING_2D_MULTISAMPLE_ARRAY, &binded_id) );
+        } break;
+    #endif
+
+    default: { } break;
+    }
+
+    return static_cast<id_t>(binded_id);
+}
+
+bool gl::Texture::isBinded() const
+{
+    return isOk() && (_id == getBindedId());
+}
+
 bool gl::Texture::isOk() const
 {
     GLboolean result;

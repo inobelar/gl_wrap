@@ -108,8 +108,8 @@ public:
 
     // -------------------------------------------------------------------------
 
-//    id_t getBindedId() const;
-//    bool isBinded() const;
+    id_t getBindedId() const;
+    bool isBinded() const;
 
     // TODO: GLES10.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, maxTextureSize, 0);
 
