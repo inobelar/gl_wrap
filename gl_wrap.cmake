@@ -24,8 +24,13 @@
     # --------------------------------------------------------------------------
 ]]
 
-# block(), endblock(), return() added in version 3.25
+# block(), endblock(), return(PROPAGATE ...) added in version 3.25
 cmake_minimum_required(VERSION 3.25)
+
+# Store 'CMAKE_CURRENT_LIST_DIR' out-of-function, so it will contain path to
+# directory of **this** file, otherwise (if use 'CMAKE_CURRENT_LIST_DIR' inside
+# of function) it will contain path, related to file where function called).
+set(__GLWRAP_DIR ${CMAKE_CURRENT_LIST_DIR})
 
 function(load_gl_wrap
          include_directories_out headers_out sources_out)
@@ -33,66 +38,66 @@ function(load_gl_wrap
     block(SCOPE_FOR VARIABLES)
 
         set(GLWRAP_INCLUDE_DIRECTORIES
-            ${CMAKE_CURRENT_LIST_DIR}/include/
+            ${__GLWRAP_DIR}/include/
         )
 
         set(GLWRAP_HEADERS
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/gl_error_checking.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/gl_extensions.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/gl_context.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/gl_glsl_version.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/gl_glsl_version_str.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/gl_scissor.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/gl_version.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/gl_viewport.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/shader_program_utils.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/gl_error_checking.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/gl_extensions.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/gl_context.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/gl_glsl_version.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/gl_glsl_version_str.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/gl_scissor.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/gl_version.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/gl_viewport.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/shader_program_utils.hpp
 
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/utils/gl_ColorRGBA.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/utils/gl_Rect.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/utils/macros.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/utils/gl_ColorRGBA.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/utils/gl_Rect.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/utils/macros.hpp
 
 
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/objects/Object.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/objects/Object.hpp
 
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/objects/Shader.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/objects/ShaderProgram.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/objects/Shader.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/objects/ShaderProgram.hpp
 
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/objects/Texture.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/objects/Texture.hpp
 
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/objects/Buffer.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/objects/VertexArrayObject.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/objects/Buffer.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/objects/VertexArrayObject.hpp
 
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/objects/RenderBuffer.hpp
-            ${CMAKE_CURRENT_LIST_DIR}/include/gl_wrap/objects/FrameBuffer.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/objects/RenderBuffer.hpp
+            ${__GLWRAP_DIR}/include/gl_wrap/objects/FrameBuffer.hpp
         )
 
         set(GLWRAP_SOURCES
-            ${CMAKE_CURRENT_LIST_DIR}/sources/gl_error_checking.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/gl_extensions.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/gl_context.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/gl_glsl_version.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/gl_glsl_version_str.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/gl_scissor.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/gl_version.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/gl_viewport.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/shader_program_utils.cpp
+            ${__GLWRAP_DIR}/sources/gl_error_checking.cpp
+            ${__GLWRAP_DIR}/sources/gl_extensions.cpp
+            ${__GLWRAP_DIR}/sources/gl_context.cpp
+            ${__GLWRAP_DIR}/sources/gl_glsl_version.cpp
+            ${__GLWRAP_DIR}/sources/gl_glsl_version_str.cpp
+            ${__GLWRAP_DIR}/sources/gl_scissor.cpp
+            ${__GLWRAP_DIR}/sources/gl_version.cpp
+            ${__GLWRAP_DIR}/sources/gl_viewport.cpp
+            ${__GLWRAP_DIR}/sources/shader_program_utils.cpp
 
-            ${CMAKE_CURRENT_LIST_DIR}/sources/utils/gl_ColorRGBA.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/utils/gl_Rect.cpp
+            ${__GLWRAP_DIR}/sources/utils/gl_ColorRGBA.cpp
+            ${__GLWRAP_DIR}/sources/utils/gl_Rect.cpp
 
 
-            ${CMAKE_CURRENT_LIST_DIR}/sources/objects/Object.cpp
+            ${__GLWRAP_DIR}/sources/objects/Object.cpp
 
-            ${CMAKE_CURRENT_LIST_DIR}/sources/objects/Shader.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/objects/ShaderProgram.cpp
+            ${__GLWRAP_DIR}/sources/objects/Shader.cpp
+            ${__GLWRAP_DIR}/sources/objects/ShaderProgram.cpp
 
-            ${CMAKE_CURRENT_LIST_DIR}/sources/objects/Texture.cpp
+            ${__GLWRAP_DIR}/sources/objects/Texture.cpp
 
-            ${CMAKE_CURRENT_LIST_DIR}/sources/objects/Buffer.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/objects/VertexArrayObject.cpp
+            ${__GLWRAP_DIR}/sources/objects/Buffer.cpp
+            ${__GLWRAP_DIR}/sources/objects/VertexArrayObject.cpp
 
-            ${CMAKE_CURRENT_LIST_DIR}/sources/objects/RenderBuffer.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/sources/objects/FrameBuffer.cpp
+            ${__GLWRAP_DIR}/sources/objects/RenderBuffer.cpp
+            ${__GLWRAP_DIR}/sources/objects/FrameBuffer.cpp
         )
 
         list(APPEND ${include_directories_out} ${GLWRAP_INCLUDE_DIRECTORIES})
