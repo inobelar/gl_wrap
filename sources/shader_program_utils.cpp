@@ -171,7 +171,32 @@ bool gl::make_program(
 /*
     References:
         - https://github.com/mattdesl/lwjgl-basics/wiki/GLSL-Versions
-        - https://stackoverflow.com/a/43671147/13057514
+        - https://stackoverflow.com/a/43671147/
+*/
+
+/*
+    Important note about '#error' pragma - we dont use quotest ('"') aroud
+    message, because some glsl compilers dont allow it, and produce shader
+    compilatior error about 'unknown symbol '"''.
+
+    It was detected on 'RockPi 4 Plus v1.73':
+        GL_VERSION: OpenGL ES 3.2 v1.r18p0-01rel0.5cb5681058e8e076ff89747c20c32578
+        GL_RENDERER: Mali-T860
+
+    Also, description in https://www.opengl.org/sdk/docs/tutorials/TyphoonLabs/Chapter_2.pdf
+    prooves that they dont needed (Section: Pre-processor Keywords):
+
+    > **error** will cause the implementation to put a diagnostic message in the
+    > shader's information log. The message will be the tokens following the
+    > **#error** directive, up to the first new line. The implementation must
+    > then consider the shader to be ill-formed.
+
+    ----------------------------------------------------------------------------
+
+    TL;DR:
+        "#error Unsupported GL GLSL Version\n"
+    not
+        "#error \"Unsupported GL GLSL Version\"\n"
 */
 
 static constexpr const char* COMPATIBILITY_DEFINES =
@@ -216,7 +241,7 @@ static constexpr const char* COMPATIBILITY_DEFINES =
             "#define COMPAT_FRAG_COLOR FragColor\n"
             "COMPAT_OUT vec4 FragColor;\n" // TODO: must be only in Fragment shader
         "#else\n"
-            "#error \"Unsupported GL GLSL Version\"\n"
+            "#error Unsupported GL GLSL Version\n"
         "#endif\n"
 
     "#elif defined(GL_ES)\n" // GL ES
@@ -249,13 +274,12 @@ static constexpr const char* COMPATIBILITY_DEFINES =
             "#define COMPAT_FRAG_COLOR FragColor\n"
             "COMPAT_OUT vec4 FragColor;\n" // TODO: must be only in Fragment shader
         "#else\n"
-            "#error \"Unsupported GLES GLSL Version\"\n"
+            "#error Unsupported GLES GLSL Version\n"
         "#endif\n"
 
     // TODO: add custom define GL_WEBGL to not rely upon GL_ES
     //   Reference: https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices#avoid_ifdef_gl_es
     //"#elif defined(GL_WEBGL)
-
 
     "#endif\n"
 };
