@@ -34,6 +34,9 @@
 
 #elif defined(GLWRAP_GL_GLES)
 
+    // If that file is missing, and mesa drivers installed, try to install it:
+    // $ sudo apt-get install libgles2-mesa-dev
+
     #include <GLES3/gl3.h>
 
 #else
